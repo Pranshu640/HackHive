@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
 const TECH_SKILLS = [
   'JavaScript', 'Python', 'Java', 'C++', 'React', 'Node.js',
@@ -43,6 +45,7 @@ const SignIn = () => {
   };
 
   const validateStep = () => {
+    console.log('Validating step:', step);
     const newErrors = {};
     
     if (step === 1) {
@@ -55,13 +58,17 @@ const SignIn = () => {
     }
     
     if (step === 2) {
+      console.log('Validating technical skills:', formData.technicalSkills);
       if (formData.technicalSkills.length === 0) {
         newErrors.technicalSkills = 'Select at least one technical skill';
       }
     }
     
+    console.log('Validation errors:', newErrors);
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    const isValid = Object.keys(newErrors).length === 0;
+    console.log('Validation result:', isValid ? 'passed' : 'failed');
+    return isValid;
   };
 
   const handleNext = () => {
@@ -270,13 +277,69 @@ const SignIn = () => {
 
       <div className="navigation-buttons">
         <button onClick={handleBack}>Back</button>
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );
 
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Starting form submission...');
+    if (!validateStep()) {
+      console.log('Form validation failed:', errors);
+      return;
+    }
+
+    console.log('All validations passed, preparing data for submission...');
+    console.log('Form data to be submitted:', formData);
+    try {
+      const response = await axios.post('http://localhost:5001/api/v1/auth/signup', {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        skills: [...formData.technicalSkills, ...formData.otherSkills],
+        projects: formData.projects.map(project => ({
+          title: project.name,
+          description: project.description,
+          technologies: project.techUsed.split(',').map(tech => tech.trim())
+        })),
+        competitiveExperience: formData.competitiveExperience.map(exp => ({
+          platform: exp.platform,
+          username: exp.achievement,
+          achievements: [exp.description]
+        }))
+      });
+
+      console.log('Signup successful:', response.data);
+      // Store the token and navigate to profile
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        window.dispatchEvent(new Event('auth-change'));
+        navigate('/profile');
+      } else {
+        throw new Error('No token received from server');
+      }
+    } catch (error) {
+      console.error('Signup failed:', error.response?.data || error.message);
+      setErrors(prev => ({
+        ...prev,
+        submit: error.response?.data?.message || 'Failed to create account'
+      }));
+    }
+  };
+
   return (
     <div className="sign-in-container">
+      <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
+        Already have an account? <Link to="/login" style={{ color: '#007bff', textDecoration: 'none' }}>Login here</Link>
+      </div>
+      {errors.submit && (
+        <div className="error-message" style={{marginBottom: '1rem'}}>
+          {errors.submit}
+        </div>
+      )}
       <div className="steps-indicator">
         <div className={`step ${step >= 1 ? 'active' : ''}`}>Basic Info</div>
         <div className={`step ${step >= 2 ? 'active' : ''}`}>Tech Stack</div>

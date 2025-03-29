@@ -1,0 +1,477 @@
+.workspace-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  height: calc(100vh - 4rem);
+  color: #fff;
+}
+
+.team-sidebar {
+  width: 300px;
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+  overflow-y: auto;
+}
+
+.team-sidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, #8a2be2, #4a90e2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.team-member-card {
+  background: rgba(40, 40, 40, 0.8);
+  border: 1px solid rgba(138, 43, 226, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.idea-card h3 {
+  margin: 0 0 1rem;
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.idea-metrics {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.difficulty, .stack-match {
+  background: rgba(138, 43, 226, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.idea-section {
+  margin: 1.5rem 0;
+}
+
+.idea-section h4 {
+  margin: 0 0 0.8rem;
+  color: #fff;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tag {
+  background: rgba(138, 43, 226, 0.2);
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.idea-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.action-button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+
+.action-button:hover {
+  opacity: 0.9;
+}
+
+.approve {
+  background: #2ecc71;
+}
+
+.deny {
+  background: #e74c3c;
+}
+
+.waitlist {
+  background: #f39c12;
+}
+
+.waitlisted-ideas {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.waitlisted-ideas h3 {
+  margin: 0 0 1rem;
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.waitlisted-idea-card {
+  background: rgba(40, 40, 40, 0.8);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.waitlisted-idea-card h4 {
+  margin: 0 0 0.5rem;
+  color: #fff;
+}
+
+.waitlisted-idea-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.team-member-card h3 {
+  margin: 0 0 0.5rem;
+  color: #fff;
+}
+
+.member-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background: rgba(138, 43, 226, 0.2);
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+.workspace-content {
+  flex: 1;
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 8px;
+  padding: 2rem;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+  overflow-y: auto;
+}
+
+.prompt-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, #8a2be2, #4a90e2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.prompt-box {
+  margin-bottom: 2rem;
+}
+
+.prompt-box textarea {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(40, 40, 40, 0.8);
+  border: 1px solid rgba(138, 43, 226, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.idea-card h3 {
+  margin: 0 0 1rem;
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.idea-metrics {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.difficulty, .stack-match {
+  background: rgba(138, 43, 226, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.idea-section {
+  margin: 1.5rem 0;
+}
+
+.idea-section h4 {
+  margin: 0 0 0.8rem;
+  color: #fff;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tag {
+  background: rgba(138, 43, 226, 0.2);
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.idea-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.action-button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+
+.action-button:hover {
+  opacity: 0.9;
+}
+
+.approve {
+  background: #2ecc71;
+}
+
+.deny {
+  background: #e74c3c;
+}
+
+.waitlist {
+  background: #f39c12;
+}
+
+.waitlisted-ideas {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.waitlisted-ideas h3 {
+  margin: 0 0 1rem;
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.waitlisted-idea-card {
+  background: rgba(40, 40, 40, 0.8);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.waitlisted-idea-card h4 {
+  margin: 0 0 0.5rem;
+  color: #fff;
+}
+
+.waitlisted-idea-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.prompt-box textarea:focus {
+  outline: none;
+  border-color: #8a2be2;
+}
+
+.generate-button {
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(45deg, #8a2be2, #4a90e2);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.generate-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #ff4d4d;
+  margin-bottom: 1rem;
+}
+
+.ideas-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.idea-card {
+  background: rgba(40, 40, 40, 0.8);
+  border: 1px solid rgba(138, 43, 226, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.idea-card h3 {
+  margin: 0 0 1rem;
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.idea-metrics {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.difficulty, .stack-match {
+  background: rgba(138, 43, 226, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.idea-section {
+  margin: 1.5rem 0;
+}
+
+.idea-section h4 {
+  margin: 0 0 0.8rem;
+  color: #fff;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tag {
+  background: rgba(138, 43, 226, 0.2);
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.idea-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.action-button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+
+.action-button:hover {
+  opacity: 0.9;
+}
+
+.approve {
+  background: #2ecc71;
+}
+
+.deny {
+  background: #e74c3c;
+}
+
+.waitlist {
+  background: #f39c12;
+}
+
+.waitlisted-ideas {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.waitlisted-ideas h3 {
+  margin: 0 0 1rem;
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.waitlisted-idea-card {
+  background: rgba(40, 40, 40, 0.8);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.waitlisted-idea-card h4 {
+  margin: 0 0 0.5rem;
+  color: #fff;
+}
+
+.waitlisted-idea-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 1.5rem;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.idea-card h3 {
+  margin: 0 0 1rem;
+  color: #fff;
+}
+
+.idea-card p {
+  margin: 0 0 1rem;
+  color: #aaa;
+  line-height: 1.5;
+}
+
+.idea-metrics {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+.difficulty,
+.stack-match {
+  background: rgba(138, 43, 226, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.prompt-input{
+    color: white;
+}
