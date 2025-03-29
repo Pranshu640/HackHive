@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Workspace.css';
 
 const Workspace = () => {
+  const navigate = useNavigate();
   const [team, setTeam] = useState(null);
   const [prompt, setPrompt] = useState('');
   const [ideas, setIdeas] = useState([]);
@@ -44,11 +46,6 @@ const Workspace = () => {
         skills: member.skills.join(', ')
       }));
 
-      const completePrompt = {
-        team: teamInfo,
-        projectRequirements: prompt
-      };
-
       const response = await axios.post('http://localhost:5001/api/v1/gemini/generate-ideas', {
         team: teamInfo,
         projectRequirements: prompt
@@ -68,6 +65,8 @@ const Workspace = () => {
       }));
 
       setIdeas(ideasArray);
+      setCurrentIdeaIndex(0);
+      setReviewingWaitlist(false);
     } catch (err) {
       console.error('Failed to generate ideas:', err);
       setError('Failed to generate ideas');
@@ -75,13 +74,81 @@ const Workspace = () => {
       setLoading(false);
     }
   };
-
-//   const calculateStackMatch = (teamSkills, requiredTechStack) => {
-//     const matchedSkills = requiredTechStack.filter(tech =>
-//       teamSkills.some(skill => skill.toLowerCase().includes(tech.toLowerCase()))
-//     );
-//     return Math.floor((matchedSkills.length / requiredTechStack.length) * 100);
-//   };
+  
+  const handleSkipIdea = () => {
+    setReviewedIdeas([...reviewedIdeas, { ...ideas[currentIdeaIndex], status: 'denied' }]);
+    
+    const nextIndex = currentIdeaIndex + 1;
+    if (nextIndex >= ideas.length && !chosenIdea) {
+      if (waitlistedIdeas.length > 0) {
+        setIdeas(waitlistedIdeas);
+        setWaitlistedIdeas([]);
+        setCurrentIdeaIndex(0);
+        setReviewingWaitlist(true);
+      } else {
+        generateIdeas();
+      }
+    } else {
+      setCurrentIdeaIndex(nextIndex);
+    }
+  };
+  
+  const handleWaitlistIdea = () => {
+    if (reviewingWaitlist) return;
+    
+    setWaitlistedIdeas([...waitlistedIdeas, ideas[currentIdeaIndex]]);
+    setReviewedIdeas([...reviewedIdeas, { ...ideas[currentIdeaIndex], status: 'waitlisted' }]);
+    
+    const nextIndex = currentIdeaIndex + 1;
+    setCurrentIdeaIndex(nextIndex);
+    
+    if (nextIndex >= ideas.length && !chosenIdea) {
+      if (waitlistedIdeas.length > 0) {
+        setIdeas(waitlistedIdeas);
+        setWaitlistedIdeas([]);
+        setCurrentIdeaIndex(0);
+        setReviewingWaitlist(true);
+      }
+    }
+  };
+  
+  const handleChooseIdea = () => {
+    const selectedIdea = ideas[currentIdeaIndex];
+    setChosenIdea(selectedIdea);
+    setReviewedIdeas([...reviewedIdeas, { ...selectedIdea, status: 'approved' }]);
+    navigate('/project-details', { state: { idea: selectedIdea } });
+  };
+  
+  const renderIdeaCard = (idea) => (
+    <div className="idea-card">
+      <h3>{idea.title}</h3>
+      <p className="description">{idea.description}</p>
+      <div className="idea-metrics">
+        <span className="difficulty">Challenge: {idea.challenge}</span>
+        <span className="stack-match">Team Match: {idea.stackMatch}%</span>
+      </div>
+      {idea.workflow && idea.workflow.length > 0 && (
+        <div className="idea-section">
+          <h4>Workflow</h4>
+          <ul>
+            {idea.workflow.map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {idea.techStack && idea.techStack.length > 0 && (
+        <div className="idea-section">
+          <h4>Tech Stack</h4>
+          <div className="tech-tags">
+            {idea.techStack.map((tech, i) => (
+              <span key={i} className="tech-tag">{tech}</span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
   
   return (
     <div className="workspace-container">
@@ -102,7 +169,7 @@ const Workspace = () => {
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Describe your hackathon, event details, and project idea requirements..."
-              className='prompt-input'
+              className="prompt-input"
               rows={4}
             />
             <button
@@ -118,105 +185,38 @@ const Workspace = () => {
 
           <div className="ideas-list">
             {chosenIdea ? (
-              <div className="idea-card">
-                <h3>{chosenIdea.title}</h3>
-                <p className="description">{chosenIdea.description}</p>
-                <div className="idea-metrics">
-                  <span className="difficulty">Challenge: {chosenIdea.challenge}%</span>
-                  <span className="stack-match">Team Match: {chosenIdea.stackMatch}%</span>
-                </div>
-                {chosenIdea.workflow.length > 0 && (
-                  <div className="idea-section">
-                    <h4>Workflow</h4>
-                    <ul>
-                      {chosenIdea.workflow.map((step, i) => (
-                        <li key={i}>{step}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {chosenIdea.techStack.length > 0 && (
-                  <div className="idea-section">
-                    <h4>Tech Stack</h4>
-                    <div className="tech-tags">
-                      {chosenIdea.techStack.map((tech, i) => (
-                        <span key={i} className="tech-tag">{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : ideas.length > 0 && currentIdeaIndex < ideas.length && (
-              <div className="idea-card">
-                <h3>{ideas[currentIdeaIndex].title}</h3>
-                <p className="description">{ideas[currentIdeaIndex].description}</p>
-                <div className="idea-metrics">
-                  <span className="difficulty">Challenge: {ideas[currentIdeaIndex].challenge}%</span>
-                  <span className="stack-match">Team Match: {ideas[currentIdeaIndex].stackMatch}%</span>
-                </div>
-                {ideas[currentIdeaIndex].workflow.length > 0 && (
-                  <div className="idea-section">
-                    <h4>Workflow</h4>
-                    <ul>
-                      {ideas[currentIdeaIndex].workflow.map((step, i) => (
-                        <li key={i}>{step}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {ideas[currentIdeaIndex].techStack.length > 0 && (
-                  <div className="idea-section">
-                    <h4>Tech Stack</h4>
-                    <div className="tech-tags">
-                      {ideas[currentIdeaIndex].techStack.map((tech, i) => (
-                        <span key={i} className="tech-tag">{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                <div className="idea-actions">
-                  <button 
-                    className="action-button approve"
-                    onClick={() => {
-                      setChosenIdea(ideas[currentIdeaIndex]);
-                      setReviewedIdeas([...reviewedIdeas, { ...ideas[currentIdeaIndex], status: 'approved' }]);
-                    }}
-                  >
-                    Choose This Idea
-                  </button>
-                  <button 
-                    className="action-button deny"
-                    onClick={() => {
-                      setReviewedIdeas([...reviewedIdeas, { ...ideas[currentIdeaIndex], status: 'denied' }]);
-                      setCurrentIdeaIndex(prev => prev + 1);
-                      if (prev + 1 >= ideas.length && !chosenIdea) {
-                        if (waitlistedIdeas.length > 0) {
-                          setIdeas(waitlistedIdeas);
-                          setWaitlistedIdeas([]);
-                          setCurrentIdeaIndex(0);
-                          setReviewingWaitlist(true);
-                        }
-                      }
-                    }}
-                  >
-                    Pass
-                  </button>
-                  {!reviewingWaitlist && (
+              renderIdeaCard(chosenIdea)
+            ) : (
+              ideas.length > 0 && currentIdeaIndex < ideas.length && (
+                <>
+                  {renderIdeaCard(ideas[currentIdeaIndex])}
+                  <div className="idea-actions">
                     <button 
-                      className="action-button waitlist"
-                      onClick={() => {
-                        setWaitlistedIdeas([...waitlistedIdeas, ideas[currentIdeaIndex]]);
-                        setReviewedIdeas([...reviewedIdeas, { ...ideas[currentIdeaIndex], status: 'waitlisted' }]);
-                        setCurrentIdeaIndex(prev => prev + 1);
-                      }}
+                      className="action-button approve"
+                      onClick={handleChooseIdea}
                     >
-                      Waitlist
+                      Choose This Idea
                     </button>
-                  )}
-                </div>
-              </div>
+                    <button 
+                      className="action-button deny"
+                      onClick={handleSkipIdea}
+                    >
+                      Skip
+                    </button>
+                    {!reviewingWaitlist && (
+                      <button 
+                        className="action-button waitlist"
+                        onClick={handleWaitlistIdea}
+                      >
+                        Waitlist
+                      </button>
+                    )}
+                  </div>
+                </>
+              )
             )}
-            {waitlistedIdeas.length > 0 && (
+            
+            {waitlistedIdeas.length > 0 && !reviewingWaitlist && (
               <div className="waitlisted-ideas">
                 <h3>Waitlisted Ideas</h3>
                 {waitlistedIdeas.map((idea, index) => (

@@ -7,6 +7,7 @@ import Profile from './components/Profile/Profile'
 import Ideas from './components/Ideas/Ideas'
 import './components/SignIn/SignIn.css'
 import Workspace from './components/Workspace/Workspace'
+import ProjectDetails from './components/ProjectDetails/ProjectDetails'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'))
@@ -37,6 +38,7 @@ function App() {
           <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
           <Route path="/ideas" element={isAuthenticated ? <Ideas /> : <Navigate to="/login" />} />
           <Route path="/workspace" element={isAuthenticated ? <Workspace /> : <Navigate to="/login" />} />
+          <Route path="/project-details" element={isAuthenticated ? <ProjectDetails /> : <Navigate to="/login" />} />
           <Route path="/" element={<Navigate to={isAuthenticated ? '/profile' : '/login'} />} />
         </Routes>
       </div>
