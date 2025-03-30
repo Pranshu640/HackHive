@@ -1,10 +1,8 @@
 .project-details-container {
+  padding: 2rem;
   max-width: 1200px;
-  margin: 2.5rem auto;
-  padding: 0 2.5rem;
-  color: #fff;
-  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(30, 30, 30, 0.95));
-  min-height: calc(100vh - 5rem);
+  margin: 0 auto;
+  color: #e0e0e0;
 }
 
 .project-details-error {
@@ -46,9 +44,10 @@
   padding: 0.6rem 1.2rem;
   border-radius: 12px;
   font-weight: 500;
-  background: rgba(138, 43, 226, 0.2);
+  background: rgba(138, 43, 226, 0.4);
   color: #fff;
-  border: 1px solid rgba(138, 43, 226, 0.3);
+  border: 1px solid rgba(138, 43, 226, 0.5);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
 }
 
@@ -123,7 +122,7 @@
 
 .workflow-list li {
   margin-bottom: 0.5rem;
-  color: #4a5568;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
 }
 
@@ -135,13 +134,14 @@
 }
 
 .tech-item {
-  background: rgba(138, 43, 226, 0.2);
+  background: rgba(138, 43, 226, 0.4);
   color: #fff;
   padding: 0.6rem 1.2rem;
   border-radius: 12px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  border: 1px solid rgba(138, 43, 226, 0.3);
+  border: 1px solid rgba(138, 43, 226, 0.5);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .tech-item:hover {
@@ -159,7 +159,7 @@
   margin-bottom: 0.8rem;
   padding-left: 1.5rem;
   position: relative;
-  color: #4a5568;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .features-list li:before {
@@ -174,6 +174,66 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.section-content.expanded {
+  max-height: 2000px;
+  transition: max-height 0.5s ease-in;
+}
+
+.roadmap-phases {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.roadmap-phase {
+  background: rgba(74, 144, 226, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.phase-tasks {
+  margin-top: 1rem;
+}
+
+.task {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.task h4 {
+  color: #4a90e2;
+  margin: 0 0 0.5rem 0;
+}
+
+.subtasks {
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+
+.task-meta {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .regenerate-button {

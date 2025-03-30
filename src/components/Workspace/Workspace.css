@@ -5,6 +5,13 @@
   height: calc(100vh - 4rem);
   color: #fff;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(30, 30, 30, 0.95));
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.workspace-container > * {
+  pointer-events: auto;
 }
 
 .team-sidebar {
@@ -187,6 +194,8 @@
   padding: 2rem;
   border: 1px solid rgba(138, 43, 226, 0.2);
   overflow-y: auto;
+  position: relative;
+  z-index: 2;
 }
 
 .prompt-section h2 {
@@ -200,6 +209,8 @@
 
 .prompt-box {
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 3;
 }
 
 .prompt-box textarea {
@@ -210,6 +221,8 @@
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 3;
 }
 
 .idea-card h3 {
@@ -343,6 +356,8 @@
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s;
+  position: relative;
+  z-index: 3;
 }
 
 .generate-button:disabled {

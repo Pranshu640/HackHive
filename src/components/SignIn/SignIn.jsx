@@ -23,8 +23,8 @@ const SignIn = () => {
     email: '',
     password: '',
     // Tech Stack
-    technicalSkills: [],
-    otherSkills: [],
+    technicalSkills: {},  // Changed to object to store skill levels
+    otherSkills: {},      // Changed to object to store skill levels
     // Experience
     projects: [{ name: '', description: '', techUsed: '' }],
     competitiveExperience: [{ platform: '', achievement: '', description: '' }]
@@ -59,7 +59,7 @@ const SignIn = () => {
     
     if (step === 2) {
       console.log('Validating technical skills:', formData.technicalSkills);
-      if (formData.technicalSkills.length === 0) {
+      if (Object.keys(formData.technicalSkills).length === 0) {
         newErrors.technicalSkills = 'Select at least one technical skill';
       }
     }
@@ -123,11 +123,17 @@ const SignIn = () => {
       const skillsField = type === 'technical' ? 'technicalSkills' : 'otherSkills';
       const skills = prev[skillsField];
       
+      // Get current level (0 if not selected)
+      const currentLevel = skills[skill] || 0;
+      // Cycle through levels 1-5, or remove if already at level 5
+      const newLevel = currentLevel === 5 ? 0 : currentLevel + 1;
+      
       return {
         ...prev,
-        [skillsField]: skills.includes(skill)
-          ? skills.filter(s => s !== skill)
-          : [...skills, skill]
+        [skillsField]: {
+          ...skills,
+          [skill]: newLevel || undefined  // Remove skill if level is 0
+        }
       };
     });
   };
@@ -169,12 +175,19 @@ const SignIn = () => {
     <div className="step-container">
       <h2>Technical Skills</h2>
       <div className="skills-section">
+        <div className="skill-legend">
+          <div className="skill-level level-1"><div className="skill-level-indicator">1</div>Level 1 - Basic Understanding</div>
+          <div className="skill-level level-2"><div className="skill-level-indicator">2</div>Level 2 - Elementary Knowledge</div>
+          <div className="skill-level level-3"><div className="skill-level-indicator">3</div>Level 3 - Intermediate Proficiency</div>
+          <div className="skill-level level-4"><div className="skill-level-indicator">4</div>Level 4 - Advanced Expertise</div>
+          <div className="skill-level level-5"><div className="skill-level-indicator">5</div>Level 5 - Master Level</div>
+        </div>
         <h3>Technical Skills</h3>
         <div className="skills-grid">
           {TECH_SKILLS.map(skill => (
             <div
               key={skill}
-              className={`skill-item ${formData.technicalSkills.includes(skill) ? 'selected' : ''}`}
+              className={`skill-item ${formData.technicalSkills[skill] ? `level-${formData.technicalSkills[skill]}` : ''}`}
               onClick={() => handleSkillToggle(skill, 'technical')}
             >
               {skill}
@@ -190,7 +203,7 @@ const SignIn = () => {
           {OTHER_SKILLS.map(skill => (
             <div
               key={skill}
-              className={`skill-item ${formData.otherSkills.includes(skill) ? 'selected' : ''}`}
+              className={`skill-item ${formData.otherSkills[skill] ? `level-${formData.otherSkills[skill]}` : ''}`}
               onClick={() => handleSkillToggle(skill, 'other')}
             >
               {skill}
@@ -299,7 +312,10 @@ const SignIn = () => {
         name: formData.name,
         email: formData.email,
         password: formData.password,
-        skills: [...formData.technicalSkills, ...formData.otherSkills],
+        skills: [
+          ...Object.entries(formData.technicalSkills).map(([skill, level]) => `${skill} (Level ${level})`),
+          ...Object.entries(formData.otherSkills).map(([skill, level]) => `${skill} (Level ${level})`)
+        ],
         projects: formData.projects.map(project => ({
           title: project.name,
           description: project.description,

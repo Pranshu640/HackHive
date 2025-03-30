@@ -8,6 +8,11 @@ import Ideas from './components/Ideas/Ideas'
 import './components/SignIn/SignIn.css'
 import Workspace from './components/Workspace/Workspace'
 import ProjectDetails from './components/ProjectDetails/ProjectDetails'
+import Projects from './components/Projects/Projects'
+import People from './components/People/People'
+import GooeyNav from './components/Navbar/navbar'
+import Squares from './components/Squares/Squares'
+import Landing from './components/Landing/Landing'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'))
@@ -32,6 +37,16 @@ function App() {
   return (
     <Router>
       <div className="app-container">
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+          <Squares
+            speed={0.3}
+            squareSize={50}
+            direction="diagonal"
+            borderColor="rgba(255, 255, 255, 0.09)"
+            hoverFillColor="rgba(204, 153, 255, 0.5)"
+          />
+        </div>
+        <GooeyNav />
         <Routes>
           <Route path="/signin" element={!isAuthenticated ? <SignIn /> : <Navigate to="/profile" />} />
           <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/profile" />} />
@@ -39,7 +54,9 @@ function App() {
           <Route path="/ideas" element={isAuthenticated ? <Ideas /> : <Navigate to="/login" />} />
           <Route path="/workspace" element={isAuthenticated ? <Workspace /> : <Navigate to="/login" />} />
           <Route path="/project-details" element={isAuthenticated ? <ProjectDetails /> : <Navigate to="/login" />} />
-          <Route path="/" element={<Navigate to={isAuthenticated ? '/profile' : '/login'} />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/people" element={<People />} />
+          <Route path="/" element={<Landing />} />
         </Routes>
       </div>
     </Router>

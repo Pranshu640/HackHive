@@ -1,3 +1,6 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&display=swap');
+
 /* Global CSS Variables */
 :root {
   --bg-color: #121212;
@@ -10,18 +13,24 @@
   --input-border: #3f3f3f;
   --input-focus-border: var(--primary-color);
   --button-hover: #9c64ff;
+  --heading-font: 'Anton', sans-serif;
+  --body-font: 'DM Sans', sans-serif;
 }
 
 /* Base Styles */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--body-font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-color);
   color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+  font-weight: 300;
+  letter-spacing: 0.10em;
 }
 
 code {
@@ -50,6 +59,20 @@ code {
 .app-container {
   min-height: 100vh;
   padding: 2rem;
+}
+
+/* Content Container - Add top margin to prevent content from being hidden behind navbar */
+.projects-container,
+.people-container,
+.profile-container,
+.workspace-container,
+.ideas-container,
+.login-container,
+.sign-in-container,
+.project-details-container,
+.todo-list-container,
+.team-formation-container {
+  margin-top: 80px; /* Adds space for the navbar */
 }
 
 /* Link Styles */

@@ -1,0 +1,103 @@
+.card-spotlight {
+    position: relative;
+    border-radius: 1.5rem;
+    border: 1.4px solid rgba(204, 153, 255, 0.5); /* Purplish border */
+    background-color: #111;
+    padding: 2rem;
+    overflow: hidden;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    --spotlight-color: rgba(204, 153, 255, 0.15); /* Adjusted purple spotlight */
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    opacity: 0.9;
+    z-index: 12;
+}
+
+.card-spotlight::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at var(--mouse-x) var(--mouse-y),
+        rgba(204, 153, 255, 0.4), /* Purplish spotlight */
+        transparent 80%
+    );
+
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 12;
+}
+
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+    opacity: 0.6; /* Adjust intensity */
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center; /* Keep cards centered */
+    align-items: center;
+    gap: 2vw; /* Reduce spacing between cards */
+    width: 100%;
+    position: relative;
+    margin-top: 3.5vh; /* Adjusted slightly for better layout */
+    margin-bottom: 2vh;
+    left: 0;
+    z-index: 10;
+}
+.custom-spotlight-card {
+    width: 35vw;  /* Reduce width slightly */
+    height: 240px; /* Reduce height slightly */
+    padding-top: 0rem;
+}
+
+/* Heading inside the card */
+.card-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: rgba(204, 153, 255, 0.9); /* Purplish heading */
+    margin-bottom: 0.8rem;
+}
+
+/* Content inside the card */
+.card-content {
+    font-size: 1rem;
+    color: white;
+    opacity: 0.85;
+    line-height: 2;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1px;
+    
+}
+
+/* Button inside the card */
+.card-button {
+    position: absolute;
+    width: 10rem;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(204, 153, 255, 0.3);
+    border: 2px solid rgba(204, 153, 255, 0.7);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.card-button:hover {
+    background-color: rgba(204, 153, 255, 0.5);
+    border-color: rgba(204, 153, 255, 1);
+    transform: scale(1.1);
+}

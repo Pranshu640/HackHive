@@ -1,0 +1,41 @@
+.shiny-text {
+    font-family: 'Anton', sans-serif;
+    color: #f1f1f1a4;
+    background: linear-gradient(
+      120deg,
+      rgba(198, 6, 232, 0.7) 40%,
+      rgba(255, 255, 255, 0.8) 50%,
+      rgba(184, 103, 255, 0.5) 60%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: inline-block;
+    animation: shine 5s linear infinite;
+    font-size: 6rem;
+    font-weight: 600;
+    z-index: 101;
+}
+
+.custom-class {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    font-size: 2rem;
+    font-weight: 475;
+    z-index: 999;
+    letter-spacing: 1.5px;
+}
+
+@keyframes shine {
+    0% {
+        background-position: 100%;
+    }
+    100% {
+        background-position: -100%;
+    }
+}
+
+.shiny-text.disabled {
+    animation: none;
+}
