@@ -19,8 +19,7 @@ const Landing = () => {
         </div>
 
         <div className="features-section">
-          <div className="cards-container">
-            <div>
+            <div className="cards-container">
             <SpotlightCard
               title="AI-Powered Idea Generator"
               content="Turn skills into winning ideas in seconds! Paste the hackathon problem statement, share your team's skills, and let AI generate tailored project ideas that align with your strengths. No more brainstorming struggles—just swipe, select, and start building!"
@@ -33,7 +32,7 @@ const Landing = () => {
               buttonText="Get Started"
               className="custom-spotlight-card"
             /></div>
-            <div>
+            <div className="cards-container">
             <SpotlightCard
               title="Swipe-Based Idea Selection"
               content="Empower your team with democratic decisions. Swipe to accept or reject AI ideas, ensuring unanimous agreement. Collective feedback refines suggestions, fostering collaboration and quickly uniting your team behind a project they love to build."
@@ -46,7 +45,7 @@ const Landing = () => {
               buttonText="Get Started"
               className="custom-spotlight-card"
             /></div>
-          </div>
+          
         </div>
 
         <div className="cta-section">

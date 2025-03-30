@@ -43,18 +43,20 @@
     display: flex;
     justify-content: center; /* Keep cards centered */
     align-items: center;
-    gap: 2vw; /* Reduce spacing between cards */
+    gap: 4vw; /* Increased spacing between cards */
     width: 100%;
     position: relative;
-    margin-top: 3.5vh; /* Adjusted slightly for better layout */
-    margin-bottom: 2vh;
+    margin-top: 4vh; /* Increased top margin */
+    margin-bottom: 4vh; /* Increased bottom margin */
     left: 0;
     z-index: 10;
+    padding: 0 2vw; /* Added horizontal padding */
 }
 .custom-spotlight-card {
     width: 35vw;  /* Reduce width slightly */
     height: 240px; /* Reduce height slightly */
     padding-top: 0rem;
+    margin-bottom: 5vh;
 }
 
 /* Heading inside the card */
